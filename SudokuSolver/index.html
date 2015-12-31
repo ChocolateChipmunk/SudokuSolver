@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Sudoku Solver</title>
+	<meta charset="utf-8" />
+    <style>
+        body {
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: solid 5px black;
+        }
+
+        td, th {
+            border: solid 1px black;
+            width: 50px;
+            height: 50px;  
+            text-align:center; 
+            font-size:larger;     
+            position:relative;    
+        }
+
+        span.possible {
+            font-size:x-small;
+            color:lightgray;
+            position:absolute;
+            top: 0px;
+            left: 0px;
+        }
+
+        td:nth-child(2n) {
+            border-right: solid 5px black;
+        }
+
+        tr:nth-child(2n) {
+            border-bottom: solid 5px black;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <span data-bind="text: cells[0].value"></span>
+                    <span class="possible" data-bind="text: cells[0].possibleValues"></span>
+                </td>
+                <td>
+                    <span data-bind="text: cells[1].value"></span>
+                    <span class="possible" data-bind="text: cells[1].possibleValues"></span>
+                </td>
+                <td>
+                    <span data-bind="text: cells[2].value"></span>
+                    <span class="possible" data-bind="text: cells[2].possibleValues"></span>
+                </td>
+                <td>
+                    <span data-bind="text: cells[3].value"></span>
+                    <span class="possible" data-bind="text: cells[3].possibleValues"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span data-bind="text: cells[4].value"></span>
+                    <span class="possible" data-bind="text: cells[4].possibleValues"></span>
+                </td>
+                <td>
+                    <span data-bind="text: cells[5].value"></span>
+                    <span class="possible" data-bind="text: cells[5].possibleValues"></span>
+                </td>
+                <td>
+                    <span data-bind="text: cells[6].value"></span>
+                    <span class="possible" data-bind="text: cells[6].possibleValues"></span></td>
+                <td>
+                    <span data-bind="text: cells[7].value"></span>
+                    <span class="possible" data-bind="text: cells[7].possibleValues"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span data-bind="text: cells[8].value"></span>
+                    <span class="possible" data-bind="text: cells[8].possibleValues"></span>
+                </td>
+                <td>
+                    <span data-bind="text: cells[9].value"></span>
+                    <span class="possible" data-bind="text: cells[9].possibleValues"></span>
+                </td>
+                <td>
+                    <span data-bind="text: cells[10].value"></span>
+                    <span class="possible" data-bind="text: cells[10].possibleValues"></span>
+                </td>
+                <td>
+                    <span data-bind="text: cells[11].value"></span>
+                    <span class="possible" data-bind="text: cells[11].possibleValues"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span data-bind="text: cells[12].value"></span>
+                    <span class="possible" data-bind="text: cells[12].possibleValues"></span>
+                </td>
+                <td>
+                    <span data-bind="text: cells[13].value"></span>
+                    <span class="possible" data-bind="text: cells[13].possibleValues"></span>
+                </td>
+                <td>
+                    <span data-bind="text: cells[14].value"></span>
+                    <span class="possible" data-bind="text: cells[14].possibleValues"></span>
+                </td>
+                <td>
+                    <span data-bind="text: cells[15].value"></span>
+                    <span class="possible" data-bind="text: cells[15].possibleValues"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <input type="button" value="Mark Possibles"  data-bind="click: calculateAllPossibleValues" />
+        <input type="button" value="Set 1" data-bind="click: setApparent" />
+        <input type="button" value="Set 2" data-bind="click: setSibling" />
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-debug.js"></script>
+    <script src="script/solver.js"></script>
+</body>
+</html>
