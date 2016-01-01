@@ -20,6 +20,7 @@
         new Cell(3, 3, 3)
     ];
 
+    // Set up sibling relationships for each cell
     for (var i = 0; i < self.cells.length; i++) {
         var cell = self.cells[i];
 
@@ -38,39 +39,9 @@
 
     self.calculateAllPossibleValues = function () {
         for (var i = 0; i < self.cells.length; i++) {
-            var cell = self.cells[i];
-            self.calculatePossibleValues(cell);
+            self.cells[i].calculatePossibleValues();
         }
     };
-    
-    self.calculatePossibleValues = function (cell) {
-        // clear the cell's possible values
-        cell.possibleValues([]);
-
-        var rowSiblingValues = cell.rowSiblings.map(function (obj) {
-            return obj.value();
-        });
-
-        var columnSiblingValues = cell.columnSiblings.map(function (obj) {
-            return obj.value();
-        });
-
-        var squareSiblingValues = cell.squareSiblings.map(function (obj) {
-            return obj.value();
-        });
-
-        // Only cells whose value is unknown can have "possible values". 
-        if (cell.value() === undefined) {
-            for (var checkValue = 1; checkValue <= 4; checkValue++) {
-                // If none of this cell's siblings contain the check value, then this cell might contain the check value.
-                if (rowSiblingValues.indexOf(checkValue) === -1
-                        && columnSiblingValues.indexOf(checkValue) === -1
-                        && squareSiblingValues.indexOf(checkValue) === -1) {
-                    cell.possibleValues.push(checkValue);
-                }
-            }
-        }
-    }
 
     self.setApparent = function () {
         var setAnyValues = false;
@@ -88,7 +59,7 @@
 
         return setAnyValues;
     };
-
+    
     self.setSibling = function () {
         var setAnyValues = false;
 
