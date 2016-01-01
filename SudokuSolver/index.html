@@ -38,13 +38,19 @@
         #sudoku .row:nth-child(2n) {
             border-bottom: solid 5px black;
         }
+
+        input[type=text] {
+            width: 2em;
+            border: none;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <div>
         <div id="sudoku" style="display: table" data-bind="foreach: cells">
             <div style="display:table-cell" class="cell">
-                <span data-bind="text: value"></span>
+                <input type="text" data-bind="value: value"></input>
                 <span class="possible" data-bind="text: possibleValues"></span>
             </div>
         </div>
@@ -60,12 +66,6 @@
     <script src="script/solver.js"></script>
     <script>
         var vm = new ViewModel();
-        vm.cells[0].value(1);
-        vm.cells[1].value(2);
-        vm.cells[2].value(3);
-        vm.cells[5].value(3);
-        vm.cells[10].value(1);
-        vm.cells[12].value(3);
 
         ko.applyBindings(vm);
 

@@ -17,19 +17,19 @@
         self.possibleValues([]);
 
         var rowSiblingValues = self.rowSiblings.map(function (obj) {
-            return obj.value();
+            return parseInt(obj.value());
         });
 
         var columnSiblingValues = self.columnSiblings.map(function (obj) {
-            return obj.value();
+            return parseInt(obj.value());
         });
 
         var squareSiblingValues = self.squareSiblings.map(function (obj) {
-            return obj.value();
+            return parseInt(obj.value());
         });
 
         // Only cells whose value is unknown can have "possible values". 
-        if (self.value() === undefined) {
+        if (self.value() === undefined || self.value() === "") {
             for (var checkValue = 1; checkValue <= 4; checkValue++) {
                 // If none of this cell's siblings contain the check value, then this cell might contain the check value.
                 if (rowSiblingValues.indexOf(checkValue) === -1
