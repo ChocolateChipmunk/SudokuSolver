@@ -1,22 +1,8 @@
-﻿function Cell(row, column, square) {
+﻿function ViewModel() {
     var self = this;
 
-    self.value = ko.observable();
-    self.row = row;                 // the row this cell is in
-    self.column = column;           // the column this cell is in 
-    self.square = square;           // the square this cell is in
-
-    self.rowSiblings = [];
-    self.columnSiblings = [];
-    self.squareSiblings = [];
-
-    self.possibleValues = ko.observableArray([]);
-};
-
-function ViewModel() {
-    var self = this;
-
-    self.cells = [new Cell(0, 0, 0),
+    self.cells = [
+        new Cell(0, 0, 0),
         new Cell(0, 1, 0),
         new Cell(0, 2, 1),
         new Cell(0, 3, 1),
@@ -34,22 +20,8 @@ function ViewModel() {
         new Cell(3, 3, 3)
     ];
 
-    // These member values are used to store entered values in a convenient format.
-    // They are used during calculation of possible values for a given cell.
-    self.rows = [[], [], [], []];
-    self.columns = [[], [], [], []];
-    self.squares = [[], [], [], []];
-
     for (var i = 0; i < self.cells.length; i++) {
         var cell = self.cells[i];
-
-        // This function needs to be called any time a cell's value is updated
-        cell.value.subscribe(function (newValue) {
-            // When the value of a cell changes, the new cell value must be added to the row, column, and square that the cell belongs to.
-            self.rows[this.row].push(newValue);
-            self.columns[this.column].push(newValue);
-            self.squares[this.square].push(newValue);
-        }, self.cells[i]);
 
         cell.columnSiblings = self.cells.filter(function (value) {
             return value.column === cell.column && value !== cell;
@@ -70,18 +42,30 @@ function ViewModel() {
             self.calculatePossibleValues(cell);
         }
     };
-
+    
     self.calculatePossibleValues = function (cell) {
         // clear the cell's possible values
         cell.possibleValues([]);
+
+        var rowSiblingValues = cell.rowSiblings.map(function (obj) {
+            return obj.value();
+        });
+
+        var columnSiblingValues = cell.columnSiblings.map(function (obj) {
+            return obj.value();
+        });
+
+        var squareSiblingValues = cell.squareSiblings.map(function (obj) {
+            return obj.value();
+        });
 
         // Only cells whose value is unknown can have "possible values". 
         if (cell.value() === undefined) {
             for (var checkValue = 1; checkValue <= 4; checkValue++) {
                 // If none of this cell's siblings contain the check value, then this cell might contain the check value.
-                if (self.rows[cell.row].indexOf(checkValue) === -1
-                        && self.columns[cell.column].indexOf(checkValue) === -1
-                        && self.squares[cell.square].indexOf(checkValue) === -1) {
+                if (rowSiblingValues.indexOf(checkValue) === -1
+                        && columnSiblingValues.indexOf(checkValue) === -1
+                        && squareSiblingValues.indexOf(checkValue) === -1) {
                     cell.possibleValues.push(checkValue);
                 }
             }
@@ -172,12 +156,3 @@ function ViewModel() {
     };
 };
 
-var vm = new ViewModel();
-vm.cells[0].value(1);
-vm.cells[1].value(2);
-vm.cells[2].value(3);
-vm.cells[5].value(3);
-vm.cells[10].value(1);
-vm.cells[12].value(3);
-
-ko.applyBindings(vm);

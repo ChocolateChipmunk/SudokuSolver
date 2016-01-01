@@ -8,18 +8,19 @@
             font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
 
-        table {
-            border-collapse: collapse;
+        #sudoku {
             border: solid 5px black;
+            border-collapse: collapse;
         }
 
-        td, th {
+        #sudoku .cell {
             border: solid 1px black;
             width: 50px;
-            height: 50px;  
-            text-align:center; 
-            font-size:larger;     
-            position:relative;    
+            height: 50px;
+            text-align: center; 
+            vertical-align: middle;
+            font-size: larger;     
+            position: relative;
         }
 
         span.possible {
@@ -30,97 +31,49 @@
             left: 0px;
         }
 
-        td:nth-child(2n) {
+        #sudoku .cell:nth-child(2n) {
             border-right: solid 5px black;
         }
 
-        tr:nth-child(2n) {
+        #sudoku .row:nth-child(2n) {
             border-bottom: solid 5px black;
         }
     </style>
 </head>
 <body>
     <div>
-        <table>
-            <tr>
-                <td>
-                    <span data-bind="text: cells[0].value"></span>
-                    <span class="possible" data-bind="text: cells[0].possibleValues"></span>
-                </td>
-                <td>
-                    <span data-bind="text: cells[1].value"></span>
-                    <span class="possible" data-bind="text: cells[1].possibleValues"></span>
-                </td>
-                <td>
-                    <span data-bind="text: cells[2].value"></span>
-                    <span class="possible" data-bind="text: cells[2].possibleValues"></span>
-                </td>
-                <td>
-                    <span data-bind="text: cells[3].value"></span>
-                    <span class="possible" data-bind="text: cells[3].possibleValues"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span data-bind="text: cells[4].value"></span>
-                    <span class="possible" data-bind="text: cells[4].possibleValues"></span>
-                </td>
-                <td>
-                    <span data-bind="text: cells[5].value"></span>
-                    <span class="possible" data-bind="text: cells[5].possibleValues"></span>
-                </td>
-                <td>
-                    <span data-bind="text: cells[6].value"></span>
-                    <span class="possible" data-bind="text: cells[6].possibleValues"></span></td>
-                <td>
-                    <span data-bind="text: cells[7].value"></span>
-                    <span class="possible" data-bind="text: cells[7].possibleValues"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span data-bind="text: cells[8].value"></span>
-                    <span class="possible" data-bind="text: cells[8].possibleValues"></span>
-                </td>
-                <td>
-                    <span data-bind="text: cells[9].value"></span>
-                    <span class="possible" data-bind="text: cells[9].possibleValues"></span>
-                </td>
-                <td>
-                    <span data-bind="text: cells[10].value"></span>
-                    <span class="possible" data-bind="text: cells[10].possibleValues"></span>
-                </td>
-                <td>
-                    <span data-bind="text: cells[11].value"></span>
-                    <span class="possible" data-bind="text: cells[11].possibleValues"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span data-bind="text: cells[12].value"></span>
-                    <span class="possible" data-bind="text: cells[12].possibleValues"></span>
-                </td>
-                <td>
-                    <span data-bind="text: cells[13].value"></span>
-                    <span class="possible" data-bind="text: cells[13].possibleValues"></span>
-                </td>
-                <td>
-                    <span data-bind="text: cells[14].value"></span>
-                    <span class="possible" data-bind="text: cells[14].possibleValues"></span>
-                </td>
-                <td>
-                    <span data-bind="text: cells[15].value"></span>
-                    <span class="possible" data-bind="text: cells[15].possibleValues"></span>
-                </td>
-            </tr>
-        </table>
+        <div id="sudoku" style="display: table" data-bind="foreach: cells">
+            <div style="display:table-cell" class="cell">
+                <span data-bind="text: value"></span>
+                <span class="possible" data-bind="text: possibleValues"></span>
+            </div>
+        </div>
     </div>
     <div>
         <input type="button" value="Mark Possibles"  data-bind="click: calculateAllPossibleValues" />
         <input type="button" value="Set 1" data-bind="click: setApparent" />
         <input type="button" value="Set 2" data-bind="click: setSibling" />
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-debug.js"></script>
+    <script src="script/model.js"></script>
     <script src="script/solver.js"></script>
+    <script>
+        var vm = new ViewModel();
+        vm.cells[0].value(1);
+        vm.cells[1].value(2);
+        vm.cells[2].value(3);
+        vm.cells[5].value(3);
+        vm.cells[10].value(1);
+        vm.cells[12].value(3);
+
+        ko.applyBindings(vm);
+
+        // Find a set of cells and wrap them in a row
+        $("#sudoku .cell").slice(0, 4).wrapAll("<div style='display: table-row' class='row'></div>");
+        $("#sudoku .cell").slice(4, 8).wrapAll("<div style='display: table-row' class='row'></div>");
+        $("#sudoku .cell").slice(8, 12).wrapAll("<div style='display: table-row' class='row'></div>");
+        $("#sudoku .cell").slice(12, 16).wrapAll("<div style='display: table-row' class='row'></div>");
+    </script>
 </body>
 </html>

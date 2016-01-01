@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
+    <Content Include="script\model.js" />
     <Content Include="script\solver.js" />
     <Content Include="Web.config" />
   </ItemGroup>
