@@ -31,11 +31,11 @@
             left: 0px;
         }
 
-        #sudoku .cell:nth-child(2n) {
+        #sudoku .cell:nth-child(3n) {
             border-right: solid 5px black;
         }
 
-        #sudoku .row:nth-child(2n) {
+        #sudoku .row:nth-child(3n) {
             border-bottom: solid 5px black;
         }
 
@@ -70,10 +70,15 @@
         ko.applyBindings(vm);
 
         // Find a set of cells and wrap them in a row
-        $("#sudoku .cell").slice(0, 4).wrapAll("<div style='display: table-row' class='row'></div>");
-        $("#sudoku .cell").slice(4, 8).wrapAll("<div style='display: table-row' class='row'></div>");
-        $("#sudoku .cell").slice(8, 12).wrapAll("<div style='display: table-row' class='row'></div>");
-        $("#sudoku .cell").slice(12, 16).wrapAll("<div style='display: table-row' class='row'></div>");
+        $("#sudoku .cell").slice(0, 9).wrapAll("<div style='display: table-row' class='row'></div>");
+        $("#sudoku .cell").slice(9, 18).wrapAll("<div style='display: table-row' class='row'></div>");
+        $("#sudoku .cell").slice(18, 27).wrapAll("<div style='display: table-row' class='row'></div>");
+        $("#sudoku .cell").slice(27, 36).wrapAll("<div style='display: table-row' class='row'></div>");
+        $("#sudoku .cell").slice(36, 45).wrapAll("<div style='display: table-row' class='row'></div>");
+        $("#sudoku .cell").slice(45, 54).wrapAll("<div style='display: table-row' class='row'></div>");
+        $("#sudoku .cell").slice(54, 63).wrapAll("<div style='display: table-row' class='row'></div>");
+        $("#sudoku .cell").slice(63, 72).wrapAll("<div style='display: table-row' class='row'></div>");
+        $("#sudoku .cell").slice(72, 81).wrapAll("<div style='display: table-row' class='row'></div>");
     </script>
 </body>
 </html>

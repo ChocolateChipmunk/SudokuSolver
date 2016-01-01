@@ -30,7 +30,7 @@
 
         // Only cells whose value is unknown can have "possible values". 
         if (self.value() === undefined || self.value() === "") {
-            for (var checkValue = 1; checkValue <= 4; checkValue++) {
+            for (var checkValue = 1; checkValue <= 9; checkValue++) {
                 // If none of this cell's siblings contain the check value, then this cell might contain the check value.
                 if (rowSiblingValues.indexOf(checkValue) === -1
                         && columnSiblingValues.indexOf(checkValue) === -1
